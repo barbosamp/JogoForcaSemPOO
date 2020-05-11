@@ -77,7 +77,7 @@ public class JogoForca {
                 palavraChave = listaPalavraDificil();
                 break;
             case "N":
-                palavraChave = listaPalavraNoraml();
+                palavraChave = listaPalavraNormal();
                 break;
             case "F":
                 palavraChave = listaPalavraFacil();
@@ -143,7 +143,7 @@ public class JogoForca {
     }
 
     // 02 
-    public static String listaPalavraNoraml(){
+    public static String listaPalavraNormal(){
         String[] palavras  = {"laranja","melao","maca"};
         Random random = new Random();
         return palavras[random.nextInt(palavras.length)];
