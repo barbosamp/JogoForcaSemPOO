@@ -5,8 +5,11 @@ import java.util.Scanner;
 
 public class JogoForca {
 
+    private static String[] dica;
+
     public static void main(String[] args){
         String palavraChave = null;
+        int qtdLetras = 0;
         System.out.println("Qual nivel de dificuldade? D(Dificil); N(Normal); F(Facil) --> ");
         Scanner in = new Scanner(System.in);
         String dificuldade = in.next().toUpperCase();
@@ -16,7 +19,7 @@ public class JogoForca {
                 palavraChave = listaPalavraDificil();
                 break;
             case "N":
-                palavraChave = listaPalavraNoraml();
+                palavraChave = listaPalavraNormal();
                 break;
             case "F":
                 palavraChave = listaPalavraFacil();
@@ -27,8 +30,43 @@ public class JogoForca {
                 break;
         }
 
-        System.out.println(palavraChave);
+        String listaEmString = "";
+        montaDica(palavraChave.length());
+        for(String s : dica){
+            listaEmString = listaEmString + s;
+        }
 
+        System.out.println("Qual letra voce chuta? --> ");
+        String letraDigitada = in.next().toLowerCase();
+
+        String[] listaLetrasCorretas = palavraChave.split("");
+
+        int i = 0;
+        qtdLetras = palavraChave.length();
+        while(i < qtdLetras){
+            if(listaLetrasCorretas[i].equals(letraDigitada)){
+                dica[i] = letraDigitada;
+            }
+            i++;
+        }
+        String novaDica = "";
+
+        for(String s : dica){
+            novaDica+= s;
+        }
+
+        System.out.println(novaDica);
+
+
+    }
+
+    public static String[] montaDica(int qdtLetras){
+        dica = new String[qdtLetras];
+
+        for(int i = 0; i < dica.length; i++){
+            dica[i] = " __ ";
+        }
+        return dica;
     }
 
     public static String listaPalavraDificil(){
@@ -37,7 +75,7 @@ public class JogoForca {
         return palavras[random.nextInt(palavras.length)];
     }
 
-    public static String listaPalavraNoraml(){
+    public static String listaPalavraNormal(){
         String[] palavras  = {"laranja","melao","maca"};
         Random random = new Random();
         return palavras[random.nextInt(palavras.length)];
