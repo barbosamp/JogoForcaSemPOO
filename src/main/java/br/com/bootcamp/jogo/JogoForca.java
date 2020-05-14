@@ -10,6 +10,9 @@ public class JogoForca {
     public static void main(String[] args){
         String palavraChave = null;
         int qtdLetras = 0;
+        int acertou = 0;
+        int pontuacao = 10;
+        String novaDica = "";
         System.out.println("Qual nivel de dificuldade? D(Dificil); N(Normal); F(Facil) --> ");
         Scanner in = new Scanner(System.in);
         String dificuldade = in.next().toUpperCase();
@@ -36,28 +39,41 @@ public class JogoForca {
             listaEmString = listaEmString + s;
         }
 
-        System.out.println("Qual letra voce chuta? --> ");
-        String letraDigitada = in.next().toLowerCase();
-
+        System.out.println(listaEmString);
         String[] listaLetrasCorretas = palavraChave.split("");
 
-        int i = 0;
-        qtdLetras = palavraChave.length();
-        while(i < qtdLetras){
-            if(listaLetrasCorretas[i].equals(letraDigitada)){
-                dica[i] = letraDigitada;
+        while(pontuacao > 0) {
+            if(palavraChave.equals(novaDica)){
+                System.out.println("Você Ganhou... Parabéns!!");
+                break;
             }
-            i++;
+            System.out.println("Qual letra voce chuta? --> ");
+            String letraDigitada = in.next().toLowerCase();
+            int i = 0;
+            qtdLetras = palavraChave.length();
+            while (i < qtdLetras) {
+                if (listaLetrasCorretas[i].equals(letraDigitada)) {
+                    dica[i] = letraDigitada;
+                    acertou = 1;
+                }
+                i++;
+            }
+
+            if(acertou == 1){
+                acertou = 0;
+            } else {
+                pontuacao-=1;
+            }
+
+            for (String s : dica) {
+                novaDica += s;
+            }
+
+            System.out.println("\n Você ainda tem: "+pontuacao+" chances!!\n");
+
+            System.out.println(novaDica);
+
         }
-        String novaDica = "";
-
-        for(String s : dica){
-            novaDica+= s;
-        }
-
-        System.out.println(novaDica);
-
-
     }
 
     public static String[] montaDica(int qdtLetras){
